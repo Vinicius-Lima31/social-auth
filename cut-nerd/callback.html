@@ -2,24 +2,77 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autorizando Cut Nerd...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .loader {
+            border-top-color: #fe2c55;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body>
-    <div style="text-align: center; margin-top: 50px; font-family: sans-serif;">
-        <h2>Código de autorização encontrado!</h2>
-        <p>Redirecionando para o seu n8n local...</p>
+<body class="bg-[#0b0e11] text-gray-100 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-md w-full bg-[#0f1216] border border-gray-800 p-8 rounded-3xl shadow-2xl text-center">
+        
+        <div id="status-icon" class="mb-6">
+            <div class="w-20 h-20 bg-green-500/10 border border-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-check text-green-500 text-3xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white">Autorização Concluída!</h2>
+        </div>
+
+        <p id="msg-status" class="text-gray-400 text-sm mb-8">
+            O código de acesso foi gerado com sucesso e está sendo enviado para o fluxo do <strong>n8n</strong>.
+        </p>
+
+        <div class="bg-[#15191e] border border-gray-800 p-4 rounded-2xl mb-8">
+            <p class="text-xs text-gray-500 uppercase font-bold mb-2">Authorization Code</p>
+            <code id="display-code" class="text-[#fe2c55] font-mono break-all text-sm">Buscando código...</code>
+        </div>
+
+        <div id="redirect-loader" class="flex items-center justify-center space-x-3 text-sm text-gray-500">
+            <div class="loader w-4 h-4 border-2 border-gray-700 rounded-full"></div>
+            <span>Redirecionando para o ambiente local...</span>
+        </div>
+
+        <p class="mt-8 text-[10px] text-gray-600 uppercase tracking-widest">
+            Cut Nerd • Sistema de Automação Privado
+        </p>
     </div>
 
     <script>
-        // Pega o código que o TikTok mandou na URL
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
-        
+        const displayCode = document.getElementById('display-code');
+        const msgStatus = document.getElementById('msg-status');
+        const statusIcon = document.getElementById('status-icon');
+        const loader = document.getElementById('redirect-loader');
+
         if (code) {
-            // Chuta o código para o seu n8n usando o link que você me mandou
-            window.location.href = `http://localhost:5678/webhook/2e03bd3d-34ff-4353-a0ad-a44043f9c653?code=${code}`;
+            displayCode.innerText = code;
+            
+            // Pequeno delay para o auditor ver que a página carregou o código
+            setTimeout(() => {
+                window.location.href = `http://localhost:5678/webhook/2e03bd3d-34ff-4353-a0ad-a44043f9c653?code=${code}`;
+            }, 2000);
+
         } else {
-            document.body.innerHTML = "<h2>Erro: Código não encontrado. Verifique a URL.</h2>";
+            displayCode.innerText = "NÃO ENCONTRADO";
+            displayCode.classList.replace('text-[#fe2c55]', 'text-yellow-500');
+            msgStatus.innerText = "Não foi possível localizar o código de autorização na URL.";
+            loader.style.display = 'none';
+            statusIcon.innerHTML = `
+                <div class="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-xmark text-red-500 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Erro de Conexão</h2>
+            `;
         }
     </script>
 </body>
