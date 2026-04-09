@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .text-tiktok-gradient {
+        .text-accent-gradient {
             background: linear-gradient(to right, #fe2c55, #25f4ee);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -38,23 +38,23 @@
         <div class="mb-10 border-b border-gray-800 pb-8">
             <div class="inline-flex items-center space-x-2 px-3 py-1 mb-4 border border-gray-700 rounded-full bg-gray-800/50 text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 <i class="fa-solid fa-file-contract text-[#fe2c55]"></i>
-                <span>Documentação Legal</span>
+                <span>Legal Compliance & Guidelines</span>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-white">
-                Terms of <span class="text-tiktok-gradient">Service</span>
+                Terms of <span class="text-accent-gradient">Service</span>
             </h1>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#15191e] p-6 rounded-2xl border border-gray-800">
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Effective Date</p>
-                    <p class="text-sm font-medium text-gray-300">30 de Março de 2026</p>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Last Updated</p>
+                    <p class="text-sm font-medium text-gray-300">April 09, 2026</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Company</p>
-                    <p class="text-sm font-medium text-gray-300">Cut Nerd</p>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Responsible Entity</p>
+                    <p class="text-sm font-medium text-gray-300">Cut Nerd Solutions</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Contact</p>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Technical Support</p>
                     <a href="mailto:viniciusnerdcut@gmail.com" class="text-sm font-medium text-cyan-400 hover:underline">viniciusnerdcut@gmail.com</a>
                 </div>
             </div>
@@ -64,36 +64,46 @@
             
             <section>
                 <h2 class="text-xl font-bold text-white mb-3 flex items-center">
-                    <i class="fa-solid fa-1 text-[#fe2c55] mr-3 text-sm"></i>
-                    Aceitação e Escopo
+                    <i class="fa-solid fa-circle-info text-[#fe2c55] mr-3 text-sm"></i>
+                    1. Scope of Use
                 </h2>
                 <p class="bg-[#0f1216] p-5 rounded-xl border border-gray-800/50">
-                    Estes Termos de Serviço regem o uso do aplicativo de sistema fechado <strong>Cut Nerd</strong>, desenvolvido para a automação de postagens via fluxos do <strong>n8n</strong>. Ao utilizar esta integração de API, você concorda que o processamento de dados é realizado de forma estritamente privada, sem acesso público ou comercialização a terceiros, servindo exclusivamente para a gestão do canal autorizado <strong>@cut.nerd</strong>.
+                    <strong>Cut Nerd</strong> is a workflow integration tool designed for the management and optimization of digital media streams. By using our services, the user agrees to fully comply with all developer policies and terms of use of third-party platforms connected via API.
                 </p>
             </section>
 
             <section>
                 <h2 class="text-xl font-bold text-white mb-3 flex items-center">
-                    <i class="fa-solid fa-2 text-cyan-400 mr-3 text-sm"></i>
-                    Uso da API do TikTok
+                    <i class="fa-solid fa-shield-check text-cyan-400 mr-3 text-sm"></i>
+                    2. Integrator Responsibilities
                 </h2>
                 <p>
-                    A plataforma utiliza a API oficial de desenvolvedores do TikTok para autenticação (OAuth 2.0) e publicação de vídeos. O usuário compromete-se a:
+                    To ensure the integrity of the social media ecosystem, the user represents and warrants that:
                 </p>
                 <ul class="list-disc list-inside mt-3 space-y-2 text-gray-400 ml-2">
-                    <li>Não utilizar a automação para publicar conteúdos que violem as Diretrizes da Comunidade do TikTok.</li>
-                    <li>Manter a segurança e integridade dos tokens de acesso gerados (Access Tokens e Refresh Tokens).</li>
-                    <li>Restringir o volume de requisições aos limites estabelecidos pela documentação oficial da API.</li>
+                    <li>They will not use the tool for the dissemination of spam or content prohibited by the community guidelines of the connected networks.</li>
+                    <li>They are the rightful owner or have an express license for all audiovisual material processed by the tool.</li>
+                    <li>They will maintain the confidentiality of their access keys and OAuth tokens, avoiding unauthorized sharing.</li>
                 </ul>
             </section>
 
             <section>
                 <h2 class="text-xl font-bold text-white mb-3 flex items-center">
-                    <i class="fa-solid fa-3 text-purple-500 mr-3 text-sm"></i>
-                    Limitação de Responsabilidade
+                    <i class="fa-solid fa-ban text-purple-500 mr-3 text-sm"></i>
+                    3. Limitation of Warranties
                 </h2>
                 <p>
-                    O aplicativo "Cut Nerd" é fornecido "no estado em que se encontra", focado em eficiência de workflow pessoal. A responsabilidade por banimentos, suspensões ou restrições aplicadas pela plataforma de destino (TikTok) em decorrência do conteúdo publicado ou comportamento anômalo da rede é inteiramente do titular da conta.
+                    The service is provided "as is". Cut Nerd Solutions is not responsible for technical limitations, account suspensions, or policy changes imposed by third-party APIs that may affect workflow performance. Compliance of published content is the sole responsibility of the end user.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                    <i class="fa-solid fa-gavel text-gray-400 mr-3 text-sm"></i>
+                    4. Termination and Access
+                </h2>
+                <p>
+                    We reserve the right to suspend technical access to the tool if we identify patterns of abusive use that may compromise our API reputation with service providers.
                 </p>
             </section>
 
@@ -102,7 +112,7 @@
 
     <footer class="border-t border-gray-800 py-8 px-6 bg-[#0f1216] mt-auto">
         <div class="max-w-4xl mx-auto text-center text-sm text-gray-600">
-            <p>© 2026 Cut Nerd. Documentação gerada para conformidade técnica.</p>
+            <p>© 2026 Cut Nerd Solutions. All rights reserved. This service is independent and has no official affiliation with external platforms.</p>
         </div>
     </footer>
 
