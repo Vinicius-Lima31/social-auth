@@ -1,1 +1,1 @@
-# tiktok-auth
+# social-auth
