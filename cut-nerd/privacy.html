@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .text-tiktok-gradient {
+        .text-accent-gradient {
             background: linear-gradient(to right, #fe2c55, #25f4ee);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -22,7 +22,7 @@
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center border border-gray-700">
-                    <i class="fa-solid fa-user-shield text-purple-500 text-xs"></i>
+                    <i class="fa-solid fa-user-shield text-cyan-400 text-xs"></i>
                 </div>
                 <span class="text-xl font-bold tracking-tight">Cut <span class="text-[#fe2c55]">Nerd</span></span>
             </div>
@@ -38,23 +38,23 @@
         <div class="mb-10 border-b border-gray-800 pb-8 text-left">
             <div class="inline-flex items-center space-x-2 px-3 py-1 mb-4 border border-gray-700 rounded-full bg-gray-800/50 text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 <i class="fa-solid fa-shield-halved text-cyan-400"></i>
-                <span>Proteção de Dados</span>
+                <span>Data Protection Protocol</span>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-white">
-                Privacy <span class="text-tiktok-gradient">Policy</span>
+                Privacy <span class="text-accent-gradient">Policy</span>
             </h1>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#15191e] p-6 rounded-2xl border border-gray-800">
                 <div>
                     <p class="text-xs text-gray-500 uppercase font-bold mb-1">Effective Date</p>
-                    <p class="text-sm font-medium text-gray-300">30 de Março de 2026</p>
+                    <p class="text-sm font-medium text-gray-300">April 09, 2026</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Company</p>
-                    <p class="text-sm font-medium text-gray-300">Cut Nerd</p>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Entity</p>
+                    <p class="text-sm font-medium text-gray-300">Cut Nerd Solutions</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Contact</p>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">Data Officer</p>
                     <a href="mailto:viniciusnerdcut@gmail.com" class="text-sm font-medium text-[#fe2c55] hover:underline">viniciusnerdcut@gmail.com</a>
                 </div>
             </div>
@@ -65,45 +65,55 @@
             <section>
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                     <i class="fa-solid fa-database text-cyan-400 mr-3"></i>
-                    1. Coleta de Informações
+                    1. Data Collection & Source
                 </h2>
                 <p>
-                    O aplicativo pessoal <strong>Cut Nerd</strong> coleta apenas as informações estritamente necessárias fornecidas através da API oficial do TikTok via protocolo de autorização OAuth 2.0. Isso inclui:
+                    <strong>Cut Nerd Solutions</strong> follows the principle of data minimization. We only collect essential information authorized via official API protocols (OAuth 2.0). This may include:
                 </p>
                 <ul class="list-disc list-inside mt-4 space-y-2 text-gray-400 bg-[#15191e]/50 p-4 rounded-xl border border-gray-800">
-                    <li>Informações básicas de perfil (username, avatar).</li>
-                    <li>Permissões de upload e gerenciamento de vídeos.</li>
-                    <li>Tokens de acesso temporários necessários para a execução dos fluxos.</li>
+                    <li>Basic profile identifiers (e.g., public display name, avatar).</li>
+                    <li>Technical scopes required for video management and publishing.</li>
+                    <li>Temporary access tokens necessary for automated workflow execution.</li>
                 </ul>
             </section>
 
             <section>
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                     <i class="fa-solid fa-gears text-[#fe2c55] mr-3"></i>
-                    2. Uso dos Dados e Finalidade
+                    2. Purpose of Processing
                 </h2>
                 <p>
-                    A finalidade exclusiva do processamento é a <strong>automação de workflows de publicação</strong> via n8n para o canal <strong>@cut.nerd</strong>. Não realizamos análise de comportamento, rastreamento de terceiros ou qualquer forma de marketing invasivo com os dados coletados.
+                    The collected data is processed exclusively for <strong>workflow automation and media synchronization</strong>. We do not engage in user behavior profiling, third-party tracking, or data monetization. All processing is strictly limited to the functional requirements of the integration.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                    <i class="fa-solid fa-handshake-slash text-purple-500 mr-3 text-sm"></i>
+                    3. No Third-Party Disclosure
+                </h2>
+                <p>
+                    We maintain a strict <strong>Zero-Sharing Policy</strong>. Your data is never sold, leased, or distributed to third-party marketing entities. Access is limited only to the technical environment required to communicate with the destination platform's API.
                 </p>
             </section>
 
             <section>
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center">
-                    <i class="fa-solid fa-lock text-purple-500 mr-3"></i>
-                    3. Armazenamento e Segurança
+                    <i class="fa-solid fa-lock text-cyan-400 mr-3"></i>
+                    4. Security and Encryption
                 </h2>
                 <p>
-                    Todos os tokens e chaves de API são armazenados de forma criptografada em ambiente de servidor privado controlado pelo usuário. Nenhuma informação é transmitida para bancos de dados públicos ou terceiros não autorizados.
+                    All API keys and OAuth tokens are stored using industry-standard encryption within a private server environment. We implement rigorous security measures to prevent unauthorized access, maintain data accuracy, and ensure the appropriate use of information.
                 </p>
             </section>
 
             <section>
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                     <i class="fa-solid fa-trash-can text-gray-400 mr-3"></i>
-                    4. Exclusão e Retenção
+                    5. Data Retention & Deletion
                 </h2>
                 <p>
-                    O usuário pode revogar o acesso do <strong>Cut Nerd</strong> a qualquer momento através das configurações de segurança do TikTok. Ao revogar o acesso, os tokens tornam-se inválidos imediatamente e são eliminados dos logs de execução do sistema em até 24 horas.
+                    Users maintain full control over their data. Access can be revoked at any time through the security settings of the connected social network. Upon revocation, all associated tokens are rendered invalid immediately and purged from our execution logs within 24 hours.
                 </p>
             </section>
 
@@ -112,7 +122,7 @@
 
     <footer class="border-t border-gray-800 py-8 px-6 bg-[#0f1216] mt-auto">
         <div class="max-w-4xl mx-auto text-center text-sm text-gray-600">
-            <p>© 2026 Cut Nerd. Esta política está em conformidade com as diretrizes de desenvolvedor do TikTok.</p>
+            <p>© 2026 Cut Nerd Solutions. This policy is designed to meet global developer transparency standards.</p>
         </div>
     </footer>
 
