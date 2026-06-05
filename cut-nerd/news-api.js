@@ -1,5 +1,5 @@
-const GNEWS_API_KEY = '93ef6af0286840a6359ccdbea650b312';
-const GNEWS_BASE_URL = 'https://gnews.io/api/v4';
+const WORKER_URL = 'https://flat-paper-88b5.viniciusmabi31.workers.dev';
+
 
 // Mapeamento de categorias do site para a GNews
 const categoryMap = {
@@ -14,7 +14,7 @@ const categoryMap = {
 async function fetchNews(category = 'technology') {
     const gnewsCategory = categoryMap[category] || 'technology';
 
-    const url = `${GNEWS_BASE_URL}/top-headlines?category=${gnewsCategory}&lang=pt&country=br&max=10&apikey=${GNEWS_API_KEY}`;
+    const url = `${WORKER_URL}?category=${gnewsCategory}`;
 
     try {
         const response = await fetch(url);
