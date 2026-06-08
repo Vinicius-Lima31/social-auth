@@ -260,7 +260,9 @@
         document.getElementById('statusBox').classList.remove('show');
     }
 
-    // Publicar no TikTok
+    // Publicar no TikTok via Cloudflare Worker (proxy)
+    const WORKER_URL = 'https://aged-bird-e952.viniciusmabi31.workers.dev';
+
     async function postToTikTok() {
         const token = document.getElementById('accessToken').value.trim();
         const title = document.getElementById('videoTitle').value.trim();
@@ -268,32 +270,26 @@
         const file = fileInput.files[0];
 
         if (!token) { setStatus('error', 'Cole o Access Token antes de continuar.'); return; }
-        if (!file) { setStatus('error', 'Selecione um vídeo antes de continuar.'); return; }
+        if (!file)  { setStatus('error', 'Selecione um vídeo antes de continuar.'); return; }
 
         const btn = document.getElementById('btnPost');
+        const progressWrap = document.getElementById('progressWrap');
+        const progressBar  = document.getElementById('progressBar');
         btn.disabled = true;
+        progressWrap.classList.add('show');
+        progressBar.style.width = '10%';
 
         try {
-            // Step 1: Init upload
+            // Step 1: Init upload via Worker
             setStatus('loading', 'Iniciando upload...');
-            const progressWrap = document.getElementById('progressWrap');
-            const progressBar = document.getElementById('progressBar');
-            progressWrap.classList.add('show');
-            progressBar.style.width = '15%';
 
-            const initRes = await fetch('https://open.tiktokapis.com/v2/post/publish/inbox/video/init/', {
+            const initRes = await fetch(WORKER_URL + '/tiktok-init', {
                 method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json; charset=UTF-8'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    source_info: {
-                        source: 'FILE_UPLOAD',
-                        video_size: file.size,
-                        chunk_size: file.size,
-                        total_chunk_count: 1
-                    }
+                    token: token,
+                    video_size: file.size,
+                    title: title || 'Cut Nerd'
                 })
             });
 
@@ -304,35 +300,38 @@
             }
 
             const uploadUrl = initData.data?.upload_url;
-            const publishId = initData.data?.publish_id;
-
             if (!uploadUrl) throw new Error('URL de upload não retornada pela API.');
 
             progressBar.style.width = '35%';
             setStatus('loading', 'Enviando vídeo...');
 
-            // Step 2: Upload do arquivo
-            const uploadRes = await fetch(uploadUrl, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'video/mp4',
-                    'Content-Range': `bytes 0-${file.size - 1}/${file.size}`,
-                    'Content-Length': file.size
-                },
-                body: file
-            });
+            // Step 2: Upload do arquivo via Worker
+            const contentType = file.type || 'video/mp4';
 
-            progressBar.style.width = '80%';
+            const uploadRes = await fetch(
+                WORKER_URL + '/tiktok-upload?upload_url=' + encodeURIComponent(uploadUrl),
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': contentType,
+                        'Content-Range': `bytes 0-${file.size - 1}/${file.size}`,
+                        'Content-Length': String(file.size)
+                    },
+                    body: file
+                }
+            );
+
+            progressBar.style.width = '100%';
 
             if (!uploadRes.ok && uploadRes.status !== 206) {
                 throw new Error('Erro durante o envio do arquivo. Status: ' + uploadRes.status);
             }
 
-            progressBar.style.width = '100%';
-            setStatus('success', '✓ Vídeo enviado com sucesso!');
+            setStatus('success', '✓ Vídeo enviado! Aguardando revisão do TikTok.');
 
         } catch (err) {
             progressWrap.classList.remove('show');
+            progressBar.style.width = '0%';
             setStatus('error', err.message || 'Erro desconhecido. Verifique o token e tente novamente.');
         } finally {
             btn.disabled = false;
