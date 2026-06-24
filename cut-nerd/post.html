@@ -19,9 +19,9 @@
         .upload-area { border: 2px dashed rgba(244,63,94,0.35); background: rgba(244,63,94,0.04); border-radius: 16px; transition: all 0.3s; cursor: pointer; }
         .upload-area:hover, .upload-area.drag { border-color: #f43f5e; background: rgba(244,63,94,0.08); }
         .upload-area.has-file { border-color: #06b6d4; background: rgba(6,182,212,0.06); }
-        input[type="text"], textarea { background: rgba(15,20,35,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #f8fafc; padding: 12px 16px; width: 100%; font-size: 14px; transition: border 0.2s; outline: none; }
-        input[type="text"]:focus, textarea:focus { border-color: rgba(244,63,94,0.5); }
-        input[type="text"]::placeholder, textarea::placeholder { color: rgba(148,163,184,0.5); }
+        input[type="text"], input[type="password"], textarea { background: rgba(15,20,35,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #f8fafc; padding: 12px 16px; width: 100%; font-size: 14px; transition: border 0.2s; outline: none; }
+        input[type="text"]:focus, input[type="password"]:focus, textarea:focus { border-color: rgba(244,63,94,0.5); }
+        input[type="text"]::placeholder, input[type="password"]::placeholder, textarea::placeholder { color: rgba(148,163,184,0.5); }
         .btn-post { background: linear-gradient(90deg, #f43f5e, #06b6d4); border-radius: 12px; font-weight: 700; font-size: 16px; padding: 16px; width: 100%; color: white; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
         .btn-post:hover { opacity: 0.9; }
         .btn-post:active { transform: scale(0.98); }
@@ -42,7 +42,7 @@
         .progress-bar { height: 100%; background: linear-gradient(90deg, #f43f5e, #06b6d4); border-radius: 99px; width: 0%; transition: width 0.4s ease; }
         .nav-link { color: rgba(248,250,252,0.7); font-size: 14px; transition: color 0.2s; }
         .nav-link:hover { color: #f8fafc; }
-        .badge-sandbox { background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.3); color: #eab308; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.05em; }
+        .badge-publish { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.05em; }
     </style>
 </head>
 <body>
@@ -75,9 +75,9 @@
                     <defs><linearGradient id="vid" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#f43f5e"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
                 </svg>
                 <h1 class="text-2xl font-bold">Publicar Vídeo</h1>
-                <span class="badge-sandbox">DEMO</span>
+                <span class="badge-publish">PUBLISH</span>
             </div>
-            <p class="text-slate-400 text-sm">Cole seu Access Token, selecione o vídeo e publique diretamente na plataforma.</p>
+            <p class="text-slate-400 text-sm">Cole seu Access Token, selecione o vídeo e publique diretamente no TikTok.</p>
         </div>
         <div class="glass rounded-2xl p-6 shadow-2xl space-y-5">
             <div>
@@ -85,7 +85,7 @@
                 <div class="token-wrap">
                     <input type="password" id="accessToken" placeholder="Cole aqui seu access_token...">
                     <button class="toggle-eye" onclick="toggleToken()" title="Mostrar/ocultar token">
-                        <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         </svg>
@@ -116,31 +116,25 @@
                     </div>
                 </div>
             </div>
-            <div class="status-box status-loading" id="statusBox">
-                <div class="spinner"></div>
-                <span id="statusText">Enviando vídeo...</span>
-            </div>
+            <div class="status-box" id="statusBox"></div>
             <div class="progress-wrap" id="progressWrap">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
             <button class="btn-post" id="btnPost" onclick="postToTikTok()">
                 Publicar Vídeo →
             </button>
-            <p class="text-center text-xs text-slate-600">O vídeo será enviado para revisão antes de ser publicado</p>
-        </div>
-        <div class="mt-6 glass rounded-xl p-4 flex gap-3">
-            <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <p class="text-xs text-slate-400">No modo <strong class="text-yellow-400">Demo</strong>, o vídeo é enviado para revisão antes de ser publicado. Após aprovação, será postado diretamente.<br><span class="text-slate-500">In <strong class="text-yellow-400">Demo</strong> mode, the video is sent for review before publishing. After approval, it will be posted directly.</span></p>
+            <p class="text-center text-xs text-slate-600">O vídeo será publicado diretamente no TikTok via OAuth 2.0</p>
         </div>
     </div>
 </main>
 <script>
+    const WORKER_URL = 'https://aged-bird-e952.viniciusmabi31.workers.dev';
+
     function toggleToken() {
         const input = document.getElementById('accessToken');
         input.type = input.type === 'password' ? 'text' : 'password';
     }
+
     function onFileSelect(input) {
         const file = input.files[0];
         if (!file) return;
@@ -151,10 +145,12 @@
         document.getElementById('fileName').textContent = file.name;
         document.getElementById('fileSize').textContent = formatBytes(file.size);
     }
+
     function formatBytes(bytes) {
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
     }
+
     const area = document.getElementById('uploadArea');
     area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('drag'); });
     area.addEventListener('dragleave', () => area.classList.remove('drag'));
@@ -170,65 +166,89 @@
             onFileSelect(input);
         }
     });
+
     function setStatus(type, text) {
         const box = document.getElementById('statusBox');
         box.className = 'status-box show status-' + type;
-        const spinner = type === 'loading' ? '<div class="spinner"></div>' : 
-                        type === 'success' ? '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' :
-                        '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
-        box.innerHTML = spinner + '<span>' + text + '</span>';
+        const icon = type === 'loading'
+            ? '<div class="spinner"></div>'
+            : type === 'success'
+            ? '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+            : '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+        box.innerHTML = icon + '<span>' + text + '</span>';
     }
-    const WORKER_URL = 'https://aged-bird-e952.viniciusmabi31.workers.dev';
+
     async function postToTikTok() {
         const token = document.getElementById('accessToken').value.trim();
         const title = document.getElementById('videoTitle').value.trim();
         const fileInput = document.getElementById('videoFile');
         const file = fileInput.files[0];
+
         if (!token) { setStatus('error', 'Cole o Access Token antes de continuar.'); return; }
         if (!file)  { setStatus('error', 'Selecione um vídeo antes de continuar.'); return; }
+
         const btn = document.getElementById('btnPost');
         const progressWrap = document.getElementById('progressWrap');
-        const progressBar = document.getElementById('progressBar');
+        const progressBar  = document.getElementById('progressBar');
         btn.disabled = true;
         progressWrap.classList.add('show');
         progressBar.style.width = '10%';
+
         try {
-            setStatus('loading', 'Enviando vídeo para publicação...');
-            progressBar.style.width = '50%';
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                const base64Video = e.target.result.split(',')[1];
-                progressBar.style.width = '70%';
-                try {
-                    const publishRes = await fetch(WORKER_URL + '/tiktok-publish', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            token: token,
-                            video_base64: base64Video,
-                            title: title || 'Cut Nerd',
-                            privacy_level: 'SELF_ONLY'
-                        })
-                    });
-                    progressBar.style.width = '90%';
-                    const publishData = await publishRes.json();
-                    if (publishData.error) {
-                        throw new Error(publishData.error.message || 'Erro ao publicar vídeo.');
-                    }
-                    progressBar.style.width = '100%';
-                    setStatus('success', '✓ Vídeo publicado como privado! Mude para público no TikTok.');
-                } catch (err) {
-                    progressWrap.classList.remove('show');
-                    progressBar.style.width = '0%';
-                    setStatus('error', err.message || 'Erro ao publicar. Verifique o token.');
-                    btn.disabled = false;
+            // Step 1: Init
+            setStatus('loading', 'Iniciando publicação...');
+
+            const initRes = await fetch(WORKER_URL + '/tiktok-init', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    token: token,
+                    video_size: file.size,
+                    title: title || 'Cut Nerd News'
+                })
+            });
+
+            const initData = await initRes.json();
+
+            if (initData.error && initData.error.code !== 'ok') {
+                throw new Error(initData.error.message || 'Erro ao iniciar publicação.');
+            }
+
+            const uploadUrl = initData.data?.upload_url;
+            if (!uploadUrl) throw new Error('URL de upload não retornada pelo TikTok.');
+
+            progressBar.style.width = '35%';
+            setStatus('loading', 'Enviando vídeo...');
+
+            // Step 2: Upload
+            const contentType = file.type || 'video/mp4';
+
+            const uploadRes = await fetch(
+                WORKER_URL + '/tiktok-upload?upload_url=' + encodeURIComponent(uploadUrl),
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': contentType,
+                        'Content-Range': `bytes 0-${file.size - 1}/${file.size}`,
+                        'Content-Length': String(file.size)
+                    },
+                    body: file
                 }
-            };
-            reader.readAsDataURL(file);
+            );
+
+            progressBar.style.width = '100%';
+
+            if (!uploadRes.ok && uploadRes.status !== 206) {
+                throw new Error('Erro durante o envio do arquivo. Status: ' + uploadRes.status);
+            }
+
+            setStatus('success', '✓ Vídeo publicado com sucesso no TikTok!');
+
         } catch (err) {
             progressWrap.classList.remove('show');
             progressBar.style.width = '0%';
-            setStatus('error', err.message || 'Erro desconhecido. Tente novamente.');
+            setStatus('error', err.message || 'Erro desconhecido. Verifique o token e tente novamente.');
+        } finally {
             btn.disabled = false;
         }
     }
